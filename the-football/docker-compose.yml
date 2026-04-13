@@ -1,0 +1,26 @@
+services:
+  gallery:
+    build: .
+    container_name: the-gallery
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - gallery-data:/data
+    environment:
+      # Initial admin credentials — change these before first run
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: changeme123
+
+      # JWT secret — set a long random string in production
+      JWT_SECRET: change-this-to-a-long-random-secret
+
+      # Max upload size in MB (default 500)
+      MAX_FILE_SIZE_MB: 500
+
+      # Port (must match the ports mapping above)
+      PORT: 3000
+
+volumes:
+  gallery-data:
+    driver: local
